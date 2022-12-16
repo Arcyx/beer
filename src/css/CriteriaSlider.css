@@ -1,0 +1,18 @@
+.criteria b {
+    color: #b46f00
+}
+.criteria i {
+  color: #000
+}
+.criteria {
+  margin: 40px;
+}
+.MuiSlider-thumb{
+  color:#EC9D00
+}
+.MuiSlider-rail{
+  color:#EC9D00
+}
+.MuiSlider-track{
+  color: #EC9D00
+}

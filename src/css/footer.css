@@ -1,0 +1,7 @@
+.footer {
+  border-top: 3px solid #EC9D00;
+  background: url("../img/beerSchematic.png") no-repeat;
+  height: 250px;
+  background-size: cover;
+  min-height: calc(100vh - 120px);
+}

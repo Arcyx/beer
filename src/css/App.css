@@ -1,0 +1,16 @@
+.App {
+  margin: 16px;
+  font-family: 'Courier New', Courier, monospace;
+}
+.header {
+  background: url("../img/beerSchematic.png") no-repeat;
+  height: 250px;
+  border-bottom: 3px solid #EC9D00;
+  background-size: cover;
+}
+.roundTitle {
+  font-size: 24px;
+    text-align: center;
+    font-family: courier;
+    margin-top: 24px;
+}
