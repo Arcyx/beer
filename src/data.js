@@ -1,20 +1,7 @@
 function buildPostBody(collection, username) {
     return {
-        "collection": collection,
-        "database": "beerParty",
-        "dataSource": "Cluster0",
-        "document": {
             "username": username,
-        }
-    };
-}
-
-function buildBeerPostBody() {
-    return {
-        "collection": "beer",
-        "database": "beerParty",
-        "dataSource": "Cluster0",
-    };
+        };
 }
 
 function buildRatingPostBody(collection, username, beername, scoreArray, totalScore) {
@@ -28,36 +15,28 @@ function buildRatingPostBody(collection, username, beername, scoreArray, totalSc
         )
     })
     return {
-        "collection": collection,
-        "database": "beerParty",
-        "dataSource": "Cluster0",
-        "document": {
             "beername" : beername,
             "username" : username,
-            "ratins": ratingsObjectArray,
+            "ratings": ratingsObjectArray,
             "totalScore" : totalScore,
-        }
-    };
+        };
 }
 
 export const registerUser = async (username) => {
-    let response = await fetch('http://localhost:8010/proxy/app/data-sxiyl/endpoint/data/v1/action/insertOne', {
+    let response = await fetch('http://localhost:8080/register', {
         method: 'post',
         body: JSON.stringify(buildPostBody("user", username)),
-        crossorigin: true,
         headers: {
             'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Origin' : '*',
             'Content-Type': 'application/json',
-            'api-key': 'v5MZxuNphdxpBTKKQnb45LSihGorIbMj0HAD0XBKEPzfKeb2aPO1tefKn5Sks4bo'
         }
     });
     return await response;
 };
 
 export const saveRating = async (username, beername, scoreArray, totalScore) => {
-    let response = await fetch('http://localhost:8010/proxy/app/data-sxiyl/endpoint/data/v1/action/insertOne', {
+    let response = await fetch('http://localhost:8080/ratings', {
         method: 'post',
         body: JSON.stringify(buildRatingPostBody("rating", username, beername, scoreArray, totalScore)),
         crossorigin: true,
@@ -66,24 +45,34 @@ export const saveRating = async (username, beername, scoreArray, totalScore) => 
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             'Content-Type': 'application/json',
-            'api-key': 'v5MZxuNphdxpBTKKQnb45LSihGorIbMj0HAD0XBKEPzfKeb2aPO1tefKn5Sks4bo'
         }
     });
     return await response;
 };
 
+export const getRatings = async () => {
+    let response = await fetch('http://localhost:8080/ratings', {
+        method: 'get',
+        crossorigin: true,
+        headers: {
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+        }
+    });
+    return await response.json();
+};
+
 export const getBeers = async () => {
-    let response = await fetch('http://localhost:8010/proxy/app/data-sxiyl/endpoint/data/v1/action/find', {
-        method: 'post',
-        body: JSON.stringify(buildBeerPostBody()),
+    let response = await fetch('http://localhost:8080/beers', {
+        method: 'get',
         crossorigin: true,
         headers: {
             'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             'Content-Type': 'application/json',
-            'api-key': 'v5MZxuNphdxpBTKKQnb45LSihGorIbMj0HAD0XBKEPzfKeb2aPO1tefKn5Sks4bo'
         }
     });
-    return await response.json();;
+    return await response.json();
 };

@@ -4,25 +4,28 @@ import Stack from '@mui/material/Stack';
 import '../css/Register.css';
 import '../css/main.css';
 import SubmitButton from './SubmitButton';
-import { registerUser, getBeers } from '../data';
+import { registerUser, getBeers, getRatings } from '../data';
 function Register(props) {
   const register = async () => {
     setUser(await registerUser(props.username));
     setBeers(await getBeers());
+    setRatings(await getRatings());
   };
 
   function setUser(response) {
     if (response.status <= 204) {
-      props.updateRegistration();
+      props.updateRegistration("REVIEWING");
     }
   }
 
   function setBeers(response) {
-    console.log(response);
-    if (response.status <= 204) {
-      props.updateBeerData(response);
-    }
+    props.updateBeerData(response);
   }
+
+  function setRatings(response) {
+    props.updateRatingData(response);
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
